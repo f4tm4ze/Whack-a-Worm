@@ -20,3 +20,4 @@ A chicken-themed whack-a-mole style arcade game. Click worms before they hide!
 2. Click RESET to start
 3. Click worms to score points
 4. Beat the high score within 30 seconds
+\https://whackaworm.netlify.app
