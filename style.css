@@ -1,0 +1,392 @@
+/* ========== GLOBAL RESET & VARIABLES ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+:root {
+    --primary-green: #2e7d32;
+    --dark-green: #1b5e20;
+    --wood-light: #f5e7d3;
+    --wood-dark: #b97f44;
+    --brown-hole: #4b2f14;
+    --gold: #ffd966;
+    --orange-accent: #ffb142;
+    --normal-color: #4caf50;
+    --fast-color: #ff9800;
+    --insane-color: #f44336;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.35);
+    --transition-fast: all 0.08s ease;
+    --transition-normal: all 0.2s ease;
+}
+
+body {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="16,4 20,12 28,12 22,18 24,28 16,22 8,28 10,18 4,12 12,12 16,4" fill="%23FFA500" stroke="%23CC7000" stroke-width="1.5"/><circle cx="12" cy="10" r="1.5" fill="black"/><circle cx="20" cy="10" r="1.5" fill="black"/><polygon points="16,14 14,17 18,17 16,14" fill="%23FF4500"/></svg>') 16 8, auto;
+}
+
+/* ========== GAME WRAPPER ========== */
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 750px;
+    width: 100%;
+}
+
+/* ========== LOGO HEADER ========== */
+.logo-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: rgba(255, 245, 220, 0.95);
+    padding: 12px 28px;
+    border-radius: 80px;
+    box-shadow: var(--shadow-md);
+}
+
+.game-logo {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.game-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #e67e22, #c0392b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: 1px;
+}
+
+/* ========== MAIN GAME CONTAINER ========== */
+.game-container {
+    background: var(--wood-light);
+    border-radius: 64px 64px 48px 48px;
+    padding: 28px 24px 32px 24px;
+    box-shadow: var(--shadow-lg), inset 0 1px 4px rgba(255, 255, 200, 0.6);
+    border-bottom: 6px solid var(--wood-dark);
+    width: 100%;
+}
+
+/* ========== SCORE CARDS ========== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.score-card, .timer-card, .best-card {
+    background: linear-gradient(145deg, #3e2a27, #2d1f1c);
+    border-radius: 28px;
+    padding: 12px 20px;
+    text-align: center;
+    flex: 1;
+    min-width: 90px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition-normal);
+}
+
+.score-card:hover, .timer-card:hover, .best-card:hover {
+    transform: translateY(-2px);
+}
+
+.card-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+.card-label {
+    color: #ffb74d;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin: 6px 0 4px;
+}
+
+.card-value {
+    color: var(--gold);
+    font-size: 2.2rem;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    line-height: 1;
+    text-shadow: 0 2px 0 #5a3a2a;
+}
+
+/* ========== DIFFICULTY SECTION ========== */
+.difficulty-section {
+    background: #fff0d0;
+    border-radius: 40px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.difficulty-label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #5d3a1a;
+    margin-bottom: 10px;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty-btn {
+    border: none;
+    padding: 8px 24px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="16,4 20,12 28,12 22,18 24,28 16,22 8,28 10,18 4,12 12,12 16,4" fill="%23FFA500" stroke="%23CC7000" stroke-width="1.5"/></svg>') 16 8, pointer;
+    transition: var(--transition-normal);
+    font-family: inherit;
+    background: #d9c5a7;
+    color: #3e2723;
+}
+
+.difficulty-btn.active {
+    background: var(--normal-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.difficulty-btn[data-difficulty="fast"].active {
+    background: var(--fast-color);
+}
+
+.difficulty-btn[data-difficulty="insane"].active {
+    background: var(--insane-color);
+}
+
+.difficulty-btn:hover:not(.active) {
+    background: #c4af8a;
+    transform: scale(1.02);
+}
+
+/* ========== GAME GRID ========== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background: #a5682a;
+    padding: 28px 22px;
+    border-radius: 70px;
+    margin: 16px 0;
+    box-shadow: inset 0 0 0 6px #7a4a1e, var(--shadow-md);
+}
+
+.hole {
+    background: var(--brown-hole);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 110px;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="16,4 20,12 28,12 22,18 24,28 16,22 8,28 10,18 4,12 12,12 16,4" fill="%23FF8C00" stroke="%23B85C00" stroke-width="1.5"/><circle cx="12" cy="10" r="1.5" fill="black"/><circle cx="20" cy="10" r="1.5" fill="black"/><polygon points="16,13 14,16 18,16 16,13" fill="%23FF4500"/></svg>') 16 8, pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.6), 0 0 0 6px #2c1a0c;
+}
+
+.hole:active {
+    transform: scale(0.96);
+}
+
+.worm {
+    background: radial-gradient(circle at 30% 35%, #f8c291, #e67e22);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><polygon points="18,4 23,13 32,13 25,20 27,30 18,24 9,30 11,20 4,13 13,13 18,4" fill="%23FF6600" stroke="%23993300" stroke-width="2"/><circle cx="14" cy="11" r="2" fill="black"/><circle cx="22" cy="11" r="2" fill="black"/><polygon points="18,15 16,18 20,18 18,15" fill="%23CC3300"/></svg>') 18 9, pointer;
+    transition: var(--transition-fast);
+    box-shadow: 0 5px 0 #b45f1b;
+    transform: translateY(-8px);
+    animation: popWorm 0.12s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.worm:active {
+    transform: scale(0.85) translateY(-2px);
+}
+
+@keyframes popWorm {
+    0% {
+        transform: scale(0.2) translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(-8px);
+        opacity: 1;
+    }
+}
+
+.hole.empty {
+    background: var(--brown-hole);
+}
+
+.hole.empty::after {
+    content: "🕳️";
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+/* ========== BUTTONS ========== */
+.controls {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 16px;
+}
+
+.btn {
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px 32px;
+    border-radius: 50px;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="16,4 20,12 28,12 22,18 24,28 16,22 8,28 10,18 4,12 12,12 16,4" fill="%23FFA500" stroke="%23CC7000" stroke-width="1.5"/></svg>') 16 8, pointer;
+    transition: var(--transition-normal);
+    font-family: inherit;
+}
+
+.btn-reset {
+    background: linear-gradient(135deg, #43a047, #2e7d32);
+    color: white;
+    box-shadow: 0 5px 0 #1b5e20;
+}
+
+.btn-reset:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #1b5e20;
+}
+
+/* ========== MESSAGE AREA ========== */
+.message-area {
+    background: #fff3e0;
+    border-radius: 60px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #5d3a1a;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05), 0 3px 8px rgba(0, 0, 0, 0.1);
+    min-height: 70px;
+}
+
+.message-emoji {
+    font-size: 1.6rem;
+}
+
+.message-text {
+    flex: 1;
+    text-align: center;
+}
+
+/* ========== FOOTER - Plain text, no oval ========== */
+footer {
+    text-align: center;
+    padding: 12px 0;
+    width: 100%;
+    font-size: 0.75rem;
+    color: #e8d5b5;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 550px) {
+    body {
+        padding: 16px;
+    }
+    
+    .game-container {
+        padding: 18px 14px 22px;
+    }
+    
+    .grid {
+        gap: 12px;
+        padding: 20px 12px;
+    }
+    
+    .card-value {
+        font-size: 1.5rem;
+    }
+    
+    .card-icon {
+        font-size: 1.3rem;
+    }
+    
+    .btn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+    
+    .game-title {
+        font-size: 1.3rem;
+    }
+    
+    .game-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .worm {
+        font-size: 2rem;
+    }
+    
+    .difficulty-btn {
+        padding: 6px 18px;
+        font-size: 0.8rem;
+    }
+    
+    .difficulty-section {
+        padding: 12px 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .header {
+        gap: 8px;
+    }
+    
+    .card-label {
+        font-size: 0.6rem;
+    }
+    
+    .message-text {
+        font-size: 0.85rem;
+    }
+}
